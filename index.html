@@ -74,7 +74,8 @@
         background-color: #d85e0d;
     }
 
-    .header1, .header2 {
+    .header1,
+    .header2 {
         /*color: #f3a11c;*/
         color: whitesmoke;
         text-shadow: 5px 5px 4px rgb(17, 15, 15), 0 0 30px rgb(138, 231, 17), 0 0 50px rgb(6, 97, 14);
@@ -100,7 +101,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 80vh;
+        height: 100vh;
         padding: 20px;
         box-sizing: border-box;
         overflow: auto;
@@ -203,9 +204,6 @@
             <label>Phone: <br><input type="text" name="phone" required></label><br>
             <label>Email: <br><input type="email" name="email" required></label><br>
             <label>Address: <br><input type="text" name="address"></label><br>
-
-            <label>Upload Photo: <br><input type="file" name="photo" accept="image/*" required></label><br>
-
             <button type="submit">Submit</button>
         </form>
     </div>
@@ -214,13 +212,22 @@
 
     <script>
         const form = document.getElementById('regForm');
-        form.addEventListener('submit', e => {
+        form.addEventListener('submit', async e => {
             e.preventDefault();
 
             const formData = new FormData(form);
-            /*const data = new URLSearchParams(formData);*/
 
-            fetch('https://script.google.com/macros/s/AKfycbyQAhs2LxHSOMkY9gK12ZRz-1Po554a9ZFZCGWTQx606Y94U9ZDO4byVyZzGktqDTTB/exec', {
+            // 通常のテキストデータ送信
+            const data = {
+                date: formData.get('date'),
+                name: formData.get('name'),
+                gender: formData.get('gender'),
+                phone: formData.get('phone'),
+                email: formData.get('email'),
+                address: formData.get('address'),
+            };
+
+            fetch('https://script.google.com/macros/s/AKfycbwHx43XWzj9uUTSRHOLF8m0SrbOlkFXjVeOrqXN058DnuqenaW4sJqlq63KUAmICA/exec', {
                 method: 'POST',
                 body: formData
             })
@@ -232,7 +239,7 @@
                 .catch(err => {
                     document.getElementById("msg").innerText = "Error: " + err;
                 });
-        });
+    });
     </script>
 
 </body>
