@@ -187,7 +187,7 @@
 
     <div class="img-container">
         <img src="./a00e39165833023.Y3JvcCwxMzc5LDEwNzksNiww.png" alt="" class="a" width="200">
-        
+
     </div>
     <br>
     <div class="form-container">
@@ -213,6 +213,7 @@
 
     <script>
         const form = document.getElementById('regForm');
+
         form.addEventListener('submit', async e => {
             e.preventDefault();
 
@@ -234,13 +235,16 @@
             })
                 .then(res => res.text())
                 .then(text => {
-                    document.getElementById("msg").innerText = "Submitted successfully!We'll send Ticket.";
-                    form.reset();
+                    // 送信成功後、thanks.htmlに遷移。メッセージをURLに含める。
+                    const msg = encodeURIComponent("Thanks for your submission。\n\nTo Transfer : ゆうちょ銀行 : 465468655565\nPlease send your payment Confirmation Letter to this Acc「MYAH FACEBOOK MESSENGER」\nWe will send ticket!");
+                    window.location.href = "thanks.html?msg=" + msg;
+                    form.reset(); // 遷移するので実は不要ですが、残してもOK
                 })
                 .catch(err => {
                     document.getElementById("msg").innerText = "Error: " + err;
+
                 });
-    });
+        });
     </script>
 
 </body>
